@@ -22,22 +22,50 @@ const { ListNode } = require('../extensions/list-node.js');
  *   }
  * }
  */
- function removeKFromList(l, k) {
-  l = f(l, k);
-  
-  function f(l, k) {
-    if(!l) return l;
-    
-    if (l.value === k) {
-      return f(l.next, k);
+
+
+//* first desition
+
+// function removeKFromList(l, k) {
+//   l = f(l, k);
+
+//   function f(l, k) {
+//     if (!l) return l;
+
+//     if (l.value === k) {
+//       return f(l.next, k);
+//     } else {
+//       l.next = f(l.next, k);
+//     }
+
+//     return l
+//   }
+
+//   return l
+// }
+
+
+//* second desition
+
+function removeKFromList(l, k) {
+  let active = l;
+  let pre = null;
+  let result = null;
+
+  while (active) {
+    if (active.value === k) {
+      if (pre) pre.next = active.next
+      active = active.next
     } else {
-      l.next = f(l.next, k);
-      
+      if (!result) result = active;
+      pre = active;
+      active = active.next
     }
-    return l
   }
-  return l
+
+  return result
 }
+
 
 module.exports = {
   removeKFromList
